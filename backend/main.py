@@ -18,7 +18,7 @@ def response_error(request_type, error_msg, d):
 app = Flask("Yiya-Server")
 conn = pymysql.connect(host="127.0.0.1",
                        user="root",
-                       password="123456",
+                       #password="123456",
                        database="yiya_db",
                        charset="utf8")
 
@@ -132,4 +132,4 @@ def query_todo_items_with_conditions():
 
 
 if __name__ == '__main__':
-    app.run(port=12223, debug=True)
+    app.run(host="0.0.0.0", port=12223, debug=True)
