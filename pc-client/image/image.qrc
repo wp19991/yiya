@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>selected.svg</file>
+        <file>unselected.svg</file>
+        <file>partiallychecked.svg</file>
+    </qresource>
+</RCC>

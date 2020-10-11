@@ -48,3 +48,6 @@ FORMS += \
     logindialog.ui \
         mainwindow.ui \
     newtodoitemdialog.ui
+
+RESOURCES += \
+    image/image.qrc
