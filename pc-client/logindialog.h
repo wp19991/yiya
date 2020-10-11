@@ -1,11 +1,12 @@
 #ifndef LOGINDIALOG_H
 #define LOGINDIALOG_H
 
+#include <memory>
 #include <QDialog>
 #include <QMessageBox>
 #include <QJsonObject>
 #include <iostream>
-
+#include <assert.h>
 #include "mainwindow.h"
 
 namespace Ui {

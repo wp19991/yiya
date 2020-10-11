@@ -62,7 +62,7 @@ private:
 private:
     std::unique_ptr<QNetworkAccessManager> manager_;
 
-    const QString URL = "http://127.0.0.1:12223";
+    const QString URL = "http://106.12.110.108:12223";
 };
 
 #endif // NETWORKUTIL_H
