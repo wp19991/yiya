@@ -60,6 +60,16 @@ public:
         manager_->post(request, bytes);
     }
 
+    void queryTodoItems(const QString &user_id) {
+        auto query_todo_items_url = URL + "/query_todo_items";
+        QByteArray bytes;
+        bytes.append("user_id=" + user_id);
+        QNetworkRequest request {QUrl {query_todo_items_url}};
+        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+        request.setHeader(QNetworkRequest::ContentLengthHeader, bytes.size());
+        manager_->post(request, bytes);
+    }
+
 public slots:
     void Finish(QNetworkReply * reply) {
         QByteArray reply_bytes = reply->readAll();

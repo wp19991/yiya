@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
 
-    void appendItem(const QString &item);
+    void appendItem(const QString &item, bool done = false);
 
     ~MainWindow();
 

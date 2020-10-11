@@ -10,6 +10,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(&NetworkUtil::instance(), &NetworkUtil::loginReplied, this, &LoginDialog::onLoginReply);
+    connect(&NetworkUtil::instance(), &NetworkUtil::queryTodoItemsReplied, this, &LoginDialog::onQueryTodoItemReply);
 }
 
 LoginDialog::~LoginDialog()

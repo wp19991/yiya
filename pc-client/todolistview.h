@@ -27,11 +27,11 @@ public:
         delete item_model_;
     }
 
-    void appendItem(const QString &item) {
+    void appendItem(const QString &item, bool done) {
 
         ItemData itemData;
         itemData.str_info = item;
-        ItemStatus itemStatus = S_YELLOW;
+        ItemStatus itemStatus = done? S_RED : S_YELLOW;
 
         QStandardItem *ptr_item = new QStandardItem;
         ptr_item->setData(itemStatus,Qt::UserRole);  // 单一存取

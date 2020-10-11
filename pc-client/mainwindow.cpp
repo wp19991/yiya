@@ -21,6 +21,6 @@ void MainWindow::on_newTodoItemButton_clicked()
     new_todo_item_dialog->show();
 }
 
-void MainWindow::appendItem(const QString &item) {
-    ui->todoItemsView->appendItem(item);
+void MainWindow::appendItem(const QString &item, bool done) {
+    ui->todoItemsView->appendItem(item, done);
 }

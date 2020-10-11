@@ -77,6 +77,33 @@ def add_todo_item():
 @app.route("/query_todo_items", methods=["POST"])
 def query_todo_items():
     user_id = request.form["user_id"]
+
+    sql = "SELECT * FROM table_todo_item WHERE user_id='{}'".format(user_id)
+    try:
+        db_cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
+        result = db_cursor.execute(sql)
+        if result == 0:
+            return response_ok("query_todo_items", {})
+
+        all_rows = db_cursor.fetchall()
+        for row_dict in all_rows:
+            id_value = row_dict.pop("id")
+            row_dict["user_id"] = str(id_value)
+            created_date_value = row_dict.pop("created_date")
+            row_dict["created_date"] = str(created_date_value)
+            created_time_value = row_dict.pop("created_time")
+            row_dict["created_time"] = str(created_time_value)
+            finish_date_value = row_dict.pop("finish_date")
+            row_dict["finish_date"] = str(finish_date_value)
+
+        return response_ok("query_todo_items", all_rows)
+    except Exception as e:
+        return response_error("query_todo_items", str(e), {})
+
+
+@app.route("/query_todo_items_with_conditions", methods=["POST"])
+def query_todo_items_with_conditions():
+    user_id = request.form["user_id"]
     finish_date = request.form["finish_date"]
     status = request.form["status"]
 
@@ -86,7 +113,7 @@ def query_todo_items():
         db_cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
         result = db_cursor.execute(sql)
         if result == 0:
-            return response_ok("add_todo_item", {})
+            return response_ok("query_todo_items_with_conditions", {})
 
         all_rows = db_cursor.fetchall()
         for row_dict in all_rows:
@@ -99,9 +126,9 @@ def query_todo_items():
             finish_date_value = row_dict.pop("finish_date")
             row_dict["finish_date"] = str(finish_date_value)
 
-        return response_ok("add_todo_item", all_rows)
+        return response_ok("query_todo_items_with_conditions", all_rows)
     except Exception as e:
-        return response_error("add_todo_item", str(e), {})
+        return response_error("query_todo_items_with_conditions", str(e), {})
 
 
 if __name__ == '__main__':
