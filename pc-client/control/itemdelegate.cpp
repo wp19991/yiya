@@ -5,6 +5,7 @@
 #include <QStyledItemDelegate>
 #include <QStyle>
 #include <QEvent>
+#include <QPainterPath>
 #include <QDebug>
 #include <QFontMetrics>
 #include "itemdef.h"

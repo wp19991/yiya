@@ -9,7 +9,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
-    connect(&NetworkUtil::instance(), &NetworkUtil::httpReplied, this, &LoginDialog::onHttpReply);
+    connect(&NetworkUtil::instance(), &NetworkUtil::loginReplied, this, &LoginDialog::onLoginReply);
 }
 
 LoginDialog::~LoginDialog()
@@ -25,4 +25,9 @@ void LoginDialog::on_exitButton_clicked()
 void LoginDialog::on_loginButton_clicked()
 {
     NetworkUtil::instance().login(ui->usernameLineEdit->text(), ui->passwordlineEdit->text());
+}
+
+void LoginDialog::on_loginButton_clicked(bool checked)
+{
+
 }

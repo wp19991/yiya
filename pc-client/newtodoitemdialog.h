@@ -2,7 +2,7 @@
 #define NEWTODOITEMDIALOG_H
 
 #include <QDialog>
-
+#include <QJsonObject>
 namespace Ui {
 class NewTodoItemDialog;
 }
@@ -20,6 +20,8 @@ private slots:
     void on_okButton_clicked();
 
     void on_cancelButton_clicked();
+
+    void onAddTodoItemReply(QJsonObject replied_json);
 
 private:
     Ui::NewTodoItemDialog *ui;
