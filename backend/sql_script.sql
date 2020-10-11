@@ -15,7 +15,7 @@ create table if not exists table_user
 	constraint table_user_pk
 		primary key (id)
 )
-comment '用户表';
+COMMENT '用户表';
 
 create unique index account_phone_number_uindex
 	on table_user (phone_number);
@@ -35,4 +35,5 @@ create table if not exists table_todo_item
     constraint table_todo_item_pk
 		primary key (id)
 )
-comment 'TODO Item表';
+DEFAULT CHARSET=utf8mb4
+COMMENT 'TODO Item表';
