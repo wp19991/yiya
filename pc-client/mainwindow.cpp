@@ -17,10 +17,14 @@ MainWindow::~MainWindow()
 int i = 0;
 void MainWindow::on_newTodoItemButton_clicked()
 {
-    auto *new_todo_item_dialog = new NewTodoItemDialog(this);
-    new_todo_item_dialog->show();
+    if(ptr_new_todo_item_dialog_ == nullptr){
+        ptr_new_todo_item_dialog_ = new NewTodoItemDialog(this);
+    }
+    // 此处需要阻塞其他界面
+    ptr_new_todo_item_dialog_->exec();
 }
 
-void MainWindow::appendItem(const QString &item, bool done) {
+void MainWindow::appendItem(const QString &item, bool done)
+{
     ui->todoItemsView->appendItem(item, done);
 }

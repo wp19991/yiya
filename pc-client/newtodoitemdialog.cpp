@@ -13,7 +13,6 @@ NewTodoItemDialog::NewTodoItemDialog(QWidget *parent) :
     ui(new Ui::NewTodoItemDialog)
 {
     ui->setupUi(this);
-    this->parent = parent;
     connect(&NetworkUtil::instance(), &NetworkUtil::addTodoItemReplied, this, &NewTodoItemDialog::onAddTodoItemReply);
 }
 
@@ -31,16 +30,11 @@ void NewTodoItemDialog::onAddTodoItemReply(QJsonObject replied_json) {
         QMessageBox::information(NULL, "提示",QString("添加待办事项失败:") + err_it.value().toString(), QMessageBox::Yes);
         return;
     }
-
-    // 新增待办事项成功, 绘制到窗口
-    reinterpret_cast<MainWindow*>(parentWidget())->appendItem(
-                this->ui->textEdit->toPlainText());
-    this->setEnabled(true);
 }
 
 void NewTodoItemDialog::on_cancelButton_clicked()
 {
-    this->destroy();
+    this->reject();
 }
 
 void NewTodoItemDialog::on_okButton_clicked()
@@ -53,5 +47,10 @@ void NewTodoItemDialog::on_okButton_clicked()
         this->setEnabled(false);
     }
 
-    this->destroy();
+    // 新增待办事项成功, 绘制到窗口
+    reinterpret_cast<MainWindow*>(parentWidget())->appendItem(
+                this->ui->textEdit->toPlainText());
+    this->setEnabled(true);
+
+    this->accept();
 }

@@ -7,6 +7,7 @@ namespace Ui {
 class MainWindow;
 }
 
+class NewTodoItemDialog;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -23,6 +24,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    NewTodoItemDialog *ptr_new_todo_item_dialog_ = nullptr;
 };
 
 #endif // MAINWINDOW_H

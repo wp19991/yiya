@@ -17,6 +17,7 @@ def response_error(request_type, error_msg, d):
 
 app = Flask("Yiya-Server")
 conn = pymysql.connect(host="127.0.0.1",
+                       port=3306,
                        user="root",
                        #password="123456",
                        database="yiya_db",
@@ -32,10 +33,10 @@ def login():
 
     username = request.form["username"]
     password = request.form["password"]
-    sql = "SELECT * FROM table_user WHERE username='{}' and password='{}';".format(username, password)
+    sql = "SELECT * FROM table_user WHERE username=%s and password=%s;"
     try:
         db_cursor = conn.cursor()
-        result = db_cursor.execute(sql)
+        result = db_cursor.execute(sql, (username, password))
         if result == 1:
             results = db_cursor.fetchall()
             user_id = results[0][0]
@@ -59,11 +60,11 @@ def add_todo_item():
     finish_date = request.form["finish_date"]
 
     sql = "INSERT INTO table_todo_item(user_id, status, context, finish_date, created_date, created_time)" \
-          " VALUES('{}', {}, '{}', '{}', '{}', '{}')".format(user_id, 0, context, finish_date, "2020-09-08", "13:44:54")
+          " VALUES(%s, %s, %s,%s, %s, %s)"
 
     try:
         db_cursor = conn.cursor()
-        result = db_cursor.execute(sql)
+        result = db_cursor.execute(sql, (user_id, 0, context, finish_date, "2020-09-08", "13:44:54"))
         conn.commit()
         if result != 1:
             return response_error("add_todo_item", "Unknown error", {})
@@ -78,10 +79,10 @@ def add_todo_item():
 def query_todo_items():
     user_id = request.form["user_id"]
 
-    sql = "SELECT * FROM table_todo_item WHERE user_id='{}'".format(user_id)
+    sql = "SELECT * FROM table_todo_item WHERE user_id=%s"
     try:
         db_cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
-        result = db_cursor.execute(sql)
+        result = db_cursor.execute(sql, (user_id))
         if result == 0:
             return response_ok("query_todo_items", {})
 
@@ -107,11 +108,10 @@ def query_todo_items_with_conditions():
     finish_date = request.form["finish_date"]
     status = request.form["status"]
 
-    sql = "SELECT * FROM table_todo_item WHERE user_id='{}' and finish_date='{}' and status={}".format(
-        user_id, finish_date, status)
+    sql = "SELECT * FROM table_todo_item WHERE user_id=%s and finish_date=%s and status=%s"
     try:
         db_cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
-        result = db_cursor.execute(sql)
+        result = db_cursor.execute(sql, (user_id, finish_date, status))
         if result == 0:
             return response_ok("query_todo_items_with_conditions", {})
 

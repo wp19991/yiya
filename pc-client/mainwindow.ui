@@ -6,64 +6,54 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>343</width>
-    <height>524</height>
+    <width>357</width>
+    <height>522</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>TODOs</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="todoItemsWidget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>321</width>
-      <height>421</height>
-     </rect>
-    </property>
-    <property name="autoFillBackground">
-     <bool>true</bool>
-    </property>
-    <widget class="QWidget" name="verticalLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>321</width>
-       <height>421</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="TodoListView" name="todoItemsView">
-        <property name="minimumSize">
-         <size>
-          <width>319</width>
-          <height>0</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="newTodoItemButton">
-        <property name="text">
-         <string>new item</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <widget class="QWidget" name="todoItemsWidget" native="true">
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="TodoListView" name="todoItemsView">
+           <property name="minimumSize">
+            <size>
+             <width>319</width>
+             <height>0</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="newTodoItemButton">
+           <property name="text">
+            <string>new item</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>343</width>
-     <height>24</height>
+     <width>357</width>
+     <height>23</height>
     </rect>
    </property>
   </widget>
