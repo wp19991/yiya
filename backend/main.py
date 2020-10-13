@@ -81,12 +81,12 @@ def add_todo_item():
 @app.route("/delete_todo_item", methods=["POST"])
 def delete_todo_item():
     # Check form contains the attrs.
-    todo_items_id = request.form["todo_items_id"]
+    todo_item_id = request.form["todo_item_id"]
 
     sql = "delete from table_todo_item where id=%s"
     try:
         db_cursor = conn.cursor()
-        result = db_cursor.execute(sql, [todo_items_id])
+        result = db_cursor.execute(sql, [todo_item_id])
         conn.commit()
         results = db_cursor.fetchall()
     except Exception as e:

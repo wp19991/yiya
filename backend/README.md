@@ -68,3 +68,7 @@ Params:
 Params:
 - user_id
 - start_date
+
+## 4.7 delete_todo_item
+Params:
+- todo_item_id

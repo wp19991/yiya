@@ -10,7 +10,7 @@ def query_todo_items_test(userid):
     postData = {"user_id": "{}".format(str(userid))}
     url_text_json = json.loads(requests.post(url, data=postData).text)
 
-    print("user_id =", str(id), " have:")
+    print("user_id =", str(userid), " have:")
     for i in url_text_json["data"]:
         print(i)
 
@@ -25,14 +25,14 @@ def add_todo_items_test(userid, context, finish_date=datetime.datetime.now().str
     query_todo_items_test(userid)
 
 
-def delete_todo_items_test(todo_items_id):
+def delete_todo_items_test(todo_item_id):
     url = "http://127.0.0.1:12223/delete_todo_item"
-    postData = {"todo_items_id": "{}".format(str(todo_items_id))}
+    postData = {"todo_item_id": "{}".format(str(todo_item_id))}
     url_text_json = json.loads(requests.post(url, data=postData).text)
     print(url_text_json)
 
 
 
-delete_todo_items_test(todo_items_id="57")
+delete_todo_items_test(todo_item_id="57")
 query_todo_items_test(userid="2")
 # add_todo_items_test(userid="2",context="test2")
