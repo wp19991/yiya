@@ -82,12 +82,11 @@ def add_todo_item():
 def delete_todo_item():
     # Check form contains the attrs.
     todo_items_id = request.form["todo_items_id"]
-    user_id = request.form["user_id"]
 
-    sql = "delete from table_todo_item where id=%s and user_id=%s"
+    sql = "delete from table_todo_item where id=%s"
     try:
         db_cursor = conn.cursor()
-        result = db_cursor.execute(sql, [todo_items_id,user_id])
+        result = db_cursor.execute(sql, [todo_items_id])
         conn.commit()
         results = db_cursor.fetchall()
     except Exception as e:
