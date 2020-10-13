@@ -2,8 +2,6 @@ import requests
 import json
 import datetime
 
-print("now_datetime", datetime.datetime.now().strftime("%F"))
-
 
 def query_todo_items_test(userid):
     url = "http://127.0.0.1:12223/query_todo_items"
@@ -30,7 +28,6 @@ def delete_todo_items_test(todo_item_id):
     postData = {"todo_item_id": "{}".format(str(todo_item_id))}
     url_text_json = json.loads(requests.post(url, data=postData).text)
     print(url_text_json)
-
 
 
 delete_todo_items_test(todo_item_id="57")

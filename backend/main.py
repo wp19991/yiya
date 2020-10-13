@@ -74,7 +74,6 @@ def add_todo_item():
         results = db_cursor.fetchall()
     except Exception as e:
         return response_error("add_todo_item", str(e), {})
-    print(sql)
     return response_ok("add_todo_item", {})
 
 
@@ -91,7 +90,6 @@ def delete_todo_item():
         results = db_cursor.fetchall()
     except Exception as e:
         return response_error("delete_todo_item", str(e), {})
-    print(sql)
     return response_ok("delete_todo_item", {})
 
 
