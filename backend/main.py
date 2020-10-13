@@ -1,6 +1,7 @@
 from flask import request, Flask
 import pymysql
 import json
+import datetime
 
 
 def response_ok(request_type, d):
@@ -36,7 +37,7 @@ def login():
     sql = "SELECT * FROM table_user WHERE username=%s and password=%s;"
     try:
         db_cursor = conn.cursor()
-        result = db_cursor.execute(sql, (username, password))
+        result = db_cursor.execute(sql, [username, password])
         if result == 1:
             results = db_cursor.fetchall()
             user_id = results[0][0]
@@ -58,13 +59,15 @@ def add_todo_item():
     user_id = request.form["user_id"]
     context = request.form["context"]
     finish_date = request.form["finish_date"]
+    if finish_date == "":
+        finish_date = str(datetime.datetime.now().strftime("%F"))
 
     sql = "INSERT INTO table_todo_item(user_id, status, context, finish_date, created_date, created_time)" \
           " VALUES(%s, %s, %s,%s, %s, %s)"
 
     try:
         db_cursor = conn.cursor()
-        result = db_cursor.execute(sql, (user_id, 0, context, finish_date, "2020-09-08", "13:44:54"))
+        result = db_cursor.execute(sql, [user_id, 0, context, finish_date, "2020-09-08", "13:44:54"])
         conn.commit()
         if result != 1:
             return response_error("add_todo_item", "Unknown error", {})
@@ -75,6 +78,29 @@ def add_todo_item():
     return response_ok("add_todo_item", {})
 
 
+@app.route("/delete_todo_item", methods=["POST"])
+def delete_todo_item():
+    # Check form contains the attrs.
+    user_id = request.form["user_id"]
+    context = request.form["context"]
+    finish_date = request.form["finish_date"]
+    if finish_date == "":
+        finish_date = str(datetime.datetime.now().strftime("%F"))
+
+    sql = "delete from table_todo_item where user_id=%s and context=%s and finish_date=%s "
+    try:
+        db_cursor = conn.cursor()
+        result = db_cursor.execute(sql, [user_id, context, finish_date])
+        conn.commit()
+        results = db_cursor.fetchall()
+        print(results)
+        # print(result)
+    except Exception as e:
+        return response_error("delete_todo_item", str(e), {})
+    print(sql)
+    return response_ok("delete_todo_item", {})
+
+
 @app.route("/query_todo_items", methods=["POST"])
 def query_todo_items():
     user_id = request.form["user_id"]
@@ -82,7 +108,7 @@ def query_todo_items():
     sql = "SELECT * FROM table_todo_item WHERE user_id=%s"
     try:
         db_cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
-        result = db_cursor.execute(sql, (user_id))
+        result = db_cursor.execute(sql, [user_id])
         if result == 0:
             return response_ok("query_todo_items", {})
 
@@ -111,7 +137,7 @@ def query_todo_items_with_conditions():
     sql = "SELECT * FROM table_todo_item WHERE user_id=%s and finish_date=%s and status=%s"
     try:
         db_cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
-        result = db_cursor.execute(sql, (user_id, finish_date, status))
+        result = db_cursor.execute(sql, [user_id, finish_date, status])
         if result == 0:
             return response_ok("query_todo_items_with_conditions", {})
 
