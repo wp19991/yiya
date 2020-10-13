@@ -81,20 +81,15 @@ def add_todo_item():
 @app.route("/delete_todo_item", methods=["POST"])
 def delete_todo_item():
     # Check form contains the attrs.
+    todo_items_id = request.form["todo_items_id"]
     user_id = request.form["user_id"]
-    context = request.form["context"]
-    finish_date = request.form["finish_date"]
-    if finish_date == "":
-        finish_date = str(datetime.datetime.now().strftime("%F"))
 
-    sql = "delete from table_todo_item where user_id=%s and context=%s and finish_date=%s "
+    sql = "delete from table_todo_item where id=%s and user_id=%s"
     try:
         db_cursor = conn.cursor()
-        result = db_cursor.execute(sql, [user_id, context, finish_date])
+        result = db_cursor.execute(sql, [todo_items_id,user_id])
         conn.commit()
         results = db_cursor.fetchall()
-        print(results)
-        # print(result)
     except Exception as e:
         return response_error("delete_todo_item", str(e), {})
     print(sql)
@@ -114,8 +109,8 @@ def query_todo_items():
 
         all_rows = db_cursor.fetchall()
         for row_dict in all_rows:
-            id_value = row_dict.pop("id")
-            row_dict["user_id"] = str(id_value)
+            todo_items_id_value = row_dict.pop("id")
+            row_dict["todo_items_id"] = todo_items_id_value
             created_date_value = row_dict.pop("created_date")
             row_dict["created_date"] = str(created_date_value)
             created_time_value = row_dict.pop("created_time")
@@ -143,8 +138,8 @@ def query_todo_items_with_conditions():
 
         all_rows = db_cursor.fetchall()
         for row_dict in all_rows:
-            id_value = row_dict.pop("id")
-            row_dict["user_id"] = id_value
+            todo_items_id_value = row_dict.pop("id")
+            row_dict["todo_items_id"] = todo_items_id_value
             created_date_value = row_dict.pop("created_date")
             row_dict["created_date"] = str(created_date_value)
             created_time_value = row_dict.pop("created_time")
